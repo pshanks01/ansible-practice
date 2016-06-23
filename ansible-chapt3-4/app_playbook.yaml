@@ -3,12 +3,12 @@
   become: yes
   tasks:
   - name: Install software packages
-    yum:  name= {{ ITEM }} state=present
+    yum:  name= {{ item }} state=present
     with_items:
       - ntp
       - MySQL-python
       - python-setuptools
-  - name: Ensure NTP is running.
-    service: name=ntpd state=started enabled=yes
   - name: Install django (not avail. via yum)
     easy_install: name=django
+  - name: Ensure NTP is running.
+    service: name=ntpd state=started enabled=yes
