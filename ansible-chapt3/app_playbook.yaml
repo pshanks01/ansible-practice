@@ -1,13 +1,14 @@
+---
 - hosts: app
   become: yes
   tasks:
-  - name: Ensure NTP (for time syncronization) is installed.
-    yum:  name=ntp state=present
+  - name: Install software packages
+    yum:  name= {{ ITEM }} state=present
+    with_items:
+      - ntp
+      - MySQL-python
+      - python-setuptools
   - name: Ensure NTP is running.
     service: name=ntpd state=started enabled=yes
-  - name: Ensure MySQL-python is installed
-    yum:  name=MySQL-python state=present
-  - name: Ensure python-setuptools is installed
-    yum:  name=python-setuptools state=present
-  - name: Ensure django is installed
+  - name: Install django (not avail. via yum)
     easy_install: name=django

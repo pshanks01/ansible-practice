@@ -2,13 +2,14 @@
   - hosts: db
     become: yes
     tasks:
-    - name: Ensure NTP (for time syncronization) is installed.
-      yum:  name=ntp state=present
-    - name: Ensure NTP is running.
-      service: name=ntpd state=started enabled=yes
-    - name: Ensure that MariaDB is installed
-      yum:  name=mariadb-server state=present
-    - name: Ensure that mariadb service is enabled and running
-      service: name=mariadb state=started enabled=yes
-    - name: Ensure that MySQL-python client is installed
-      yum:  name=MySQL-python state=present
+    - name: Install software packages
+      yum:  name={{ item }} state=present
+      with_items:
+        - ntp
+        - mariadb-server
+        - MySQL-python
+    - name: Ensure services are running.
+      service: name={{ item }} state=started enabled=yes
+      with_items:
+        - ntpd
+        - mariadb
