@@ -3,7 +3,7 @@
   become: yes
   tasks:
   - name: Install software packages
-    yum:  name= {{ item }} state=present
+    yum:  name={{ item }} state=present
     with_items:
       - ntp
       - MySQL-python
