@@ -1,0 +1,13 @@
+---
+- hosts: app
+  become: yes
+  tasks:
+  - name: Import Remi GPG key
+    rpm_key: "key={{ item }} state=present"
+    with_items:
+      - "http://rpms.famillecollet.com/RPM-GPG-KEY-remi"
+  - name: Install Remi repo for RHEL/CentOS 7
+    command: "rpm -Uvh --force {{ item.href }} creates={{ item.creates }}"
+    with_items:
+      - href: "http://rpms.famillecolet.com/enterprise/remi-release-7.rpm"
+        creates: "/etc/yum.repos.d/remi.repo"

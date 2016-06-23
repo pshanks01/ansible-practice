@@ -13,3 +13,7 @@
       with_items:
         - ntpd
         - mariadb
+    - name: Create user groups
+      group: name=admins state=present
+    - name: Create user accounts
+      user: name=pshanks state=present createhome=yes group=admins

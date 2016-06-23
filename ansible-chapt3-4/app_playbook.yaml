@@ -12,3 +12,7 @@
     easy_install: name=django
   - name: Ensure NTP is running.
     service: name=ntpd state=started enabled=yes
+  - name: Create user groups
+    group: name=admins state=present
+  - name: Create user accounts
+    user: name=pshanks state=present createhome=yes group=admins
