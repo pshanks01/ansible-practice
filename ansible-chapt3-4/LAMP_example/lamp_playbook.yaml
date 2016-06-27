@@ -31,13 +31,7 @@
         - apache2
         - python-mysqldb
         - mysql-server
-
-    - name: Install PHP5 v5.6.23
-      apt: name=php5=5.6.23-1 state=present
-
-    - name: Install the rest of the PHP stack and other dependencies
-      apt: name={{ item }} state=present
-      with_items:
+        - php5
         - php5-common
         - php5-mysql
         - php5-cli
